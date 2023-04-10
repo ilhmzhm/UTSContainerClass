@@ -1,0 +1,386 @@
+//class Mahasiswa
+public class Mahasiswa {
+
+    private String nama;
+    private String npm;
+    private String password;
+    private Buku[] daftarPinjaman;
+
+    // Constructor
+    public Mahasiswa(String nama, String npm, String password) {
+        this.nama = nama;
+        this.npm = npm;
+        this.password = password;
+        this.daftarPinjaman = new Buku[2];
+    }
+
+    // Getter dan setter
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getNpm() {
+        return npm;
+    }
+
+    public void setNpm(String npm) {
+        this.npm = npm;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Buku[] getDaftarPinjaman() {
+        return daftarPinjaman;
+    }
+
+    public void setDaftarPinjaman(Buku[] daftarPinjaman) {
+        this.daftarPinjaman = daftarPinjaman;
+    }
+}
+
+//class Pegawai
+public class Pegawai {
+
+    private String nama;
+    private String nip;
+    private String password;
+
+    // Constructor
+    public Pegawai(String nama, String nip, String password) {
+        this.nama = nama;
+        this.nip = nip;
+        this.password = password;
+    }
+
+    // Getter dan Setter
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
+
+//class Buku
+public class Buku {
+
+    private String judul;
+    private String pengarang;
+    private String penerbit;
+    private int tahunTerbit;
+
+    // Constructor
+    public Buku(String judul, String pengarang, String penerbit, int tahunTerbit) {
+        this.judul = judul;
+        this.pengarang = pengarang;
+        this.penerbit = penerbit;
+        this.tahunTerbit = tahunTerbit;
+    }
+
+    // Getter dan Setter
+    public String getJudul() {
+        return judul;
+    }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
+
+    public String getPengarang() {
+        return pengarang;
+    }
+
+    public void setPengarang(String pengarang) {
+        this.pengarang = pengarang;
+    }
+
+    public String getPenerbit() {
+        return penerbit;
+    }
+
+    public void setPenerbit(String penerbit) {
+        this.penerbit = penerbit;
+    }
+
+    public int getTahunTerbit() {
+        return tahunTerbit;
+    }
+
+    public void setTahunTerbit(int tahunTerbit) {
+        this.tahunTerbit = tahunTerbit;
+    }
+}
+
+//main class Perpustakaan
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+public class SisForPerpustakaan {
+
+    static void waktu() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        System.out.println(formatter.format(date));
+    }
+
+    public static void main(String[] args) {
+        // Inisialisasi objek mahasiswa dan pegawai
+        Mahasiswa[] mahasiswaArr = {
+            new Mahasiswa("Ilham Takbir Al Azhiim", "22082010092", "azhimilham"),
+            new Mahasiswa("Nayli Amirah Firdaus", "22082010090", "sukant"),
+            new Mahasiswa("Mohammad Ivan Saputra", "22082010115", "berkatan")
+        };
+        Pegawai[] pegawaiArr = {
+            new Pegawai("Inul Daratista", "001", "123456"),
+            new Pegawai("Iis Dahlia", "002", "234567"),
+            new Pegawai("Ayu Ting-ting", "003", "345678")
+        };
+        // Inisialisasi objek buku
+        Buku[] bukuArr = {
+            new Buku("Perahu Kertas", "Dewi Lestari", "Gramedia Pustaka Utama", 2003),
+            new Buku("Harry Potter and the Philosopher's Stone", "JK Rowling", "Bloomsbury", 1997),
+            new Buku("Bumi", "Tere Liye", "Gramedia Pustaka Utama", 2014),
+            new Buku("Laskar Pelangi", "Andrea Hirata", "Gramedia Pustaka Utama", 2005),
+            new Buku("Sang Pemimpi", "Andrea Hirata", "Gramedia Pustaka Utama", 2006)
+
+        };
+        Scanner scanner = new Scanner(System.in);
+        boolean isLoggedIn = false;
+        String loginType = "";
+        String namaUser = "";
+
+        while (!isLoggedIn) {
+            // Login
+            System.out.println("     Selamat Datang di Sistem Informasi \n          Perpustakaan Sederhana");
+            System.out.println("\nSilahkan Masukkan NPM/NIP dan Password Anda");
+            System.out.println("                 .......");
+            System.out.print("\nMasukkan NPM/NIP: ");
+            String nomor = scanner.nextLine();
+            System.out.print("Masukkan password: ");
+            String password = scanner.nextLine();
+
+            // Cek login mahasiswa
+            Mahasiswa mahasiswa = null;
+            for (Mahasiswa mhs : mahasiswaArr) {
+                if (mhs.getNpm().equals(nomor) && mhs.getPassword().equals(password)) {
+                    isLoggedIn = true;
+                    loginType = "mahasiswa";
+                    namaUser = mhs.getNama();
+                    mahasiswa = mhs;
+                    break;
+                }
+            }
+
+            // Cek login pegawai
+            for (Pegawai pegawai : pegawaiArr) {
+                if (pegawai.getNip().equals(nomor) && pegawai.getPassword().equals(password)) {
+                    isLoggedIn = true;
+                    loginType = "pegawai";
+                    namaUser = pegawai.getNama();
+                    break;
+                }
+            }
+
+            if (!isLoggedIn) {
+                System.out.println("NIM/NIP atau password salah.");
+            }
+        }
+
+        System.out.println("\nAnda Berhasil Login");
+        System.out.println("Selamat Datang " + namaUser + " !");
+
+        if (loginType.equals("mahasiswa")) {
+            Mahasiswa mahasiswa = null;
+
+            while (true) {
+                System.out.println("\n");
+                System.out.println("Anda Masuk sebagai Mahasiswa");
+                System.out.println("......");
+                System.out.println("\n");
+                System.out.println("============== MENU MAHASISWA ==============");
+                System.out.println("1. Lihat daftar buku");
+                System.out.println("2. Pinjam buku");
+                System.out.println("3. Kembalikan buku");
+                System.out.println("4. Lihat daftar buku yang sedang dipinjam");
+                System.out.println("5. Keluar");
+                System.out.println("Pilih Menu: ");
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+                mahasiswa = mahasiswaArr[0];
+
+                switch (choice) {
+                    case 1:
+                        // Tampilkan daftar buku
+                        System.out.println("Daftar buku:");
+                        for (Buku buku : bukuArr) {
+                            System.out.println("- Judul: " + buku.getJudul());
+                            System.out.println("  Pengarang: " + buku.getPengarang());
+                            System.out.println("  Penerbit: " + buku.getPenerbit());
+                            System.out.println("  Tahun Terbit: " + buku.getTahunTerbit());
+                        }
+                        break;
+
+                    case 2:
+                        System.out.print("Masukkan judul buku yang ingin dipinjam: ");
+                        String judulPinjaman = scanner.nextLine();
+
+                        boolean isSuccess = false;
+
+                        for (Buku buku : bukuArr) {
+                            // Pinjam buku
+                            if (buku.getJudul().equalsIgnoreCase(judulPinjaman)) {
+                                for (int i = 0; i < mahasiswa.getDaftarPinjaman().length; i++) {
+                                    if (mahasiswa.getDaftarPinjaman()[i] == null) {
+                                        mahasiswa.getDaftarPinjaman()[i] = buku;
+                                        isSuccess = true;
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        if (isSuccess) {
+                            System.out.println("Buku " + judulPinjaman + " berhasil dipinjam");
+                        } else {
+                            System.out.println("Buku " + judulPinjaman + " tidak tersedia atau sudah habis dipinjam");
+                        }
+                        break;
+
+                    case 3:
+                        System.out.print("Masukkan judul buku yang ingin dikembalikan: ");
+                        String judulPengembalian = scanner.nextLine();
+                        boolean isReturned = false;
+                        for (int i = 0; i < mahasiswa.getDaftarPinjaman().length; i++) {
+                            if (mahasiswa.getDaftarPinjaman()[i] != null && mahasiswa.getDaftarPinjaman()[i].getJudul().equals(judulPengembalian)) {
+                                mahasiswa.getDaftarPinjaman()[i] = null;
+                                isReturned = true;
+                                break;
+                            }
+                        }
+                        if (isReturned) {
+                            System.out.println("Buku " + judulPengembalian + " berhasil dikembalikan");
+                        } else {
+                            System.out.println("Buku " + judulPengembalian + " tidak ditemukan dalam daftar peminjaman Anda");
+                        }
+                        break;
+
+                    case 4:
+                        // Tampilkan daftar buku yang sedang dipinjam
+                        System.out.println("Daftar buku yang sedang dipinjam:");
+                        for (Buku buku : mahasiswa.getDaftarPinjaman()) {
+                            if (buku != null) {
+                                System.out.println("- " + buku.getJudul());
+                            }
+                        }
+                        break;
+
+                    case 5:
+                        System.out.println("      Anda Telah Keluar dari Program ... ");
+                        System.out.print("\t    ");
+                        waktu();
+                        System.out.println("                Terima kasih.");
+                        System.exit(0);
+
+                    default:
+                        System.out.println("Pilihan tidak valid.");
+                        break;
+                }
+            }
+        } else if (loginType.equals("pegawai")) {
+            while (true) {
+                System.out.println("\n");
+                System.out.println("Anda Masuk sebagai Pegawai");
+                System.out.println("......");
+                System.out.println("\n");
+                System.out.println("============== MENU PEGAWAI ==============");
+                System.out.println("1. Tambah buku");
+                System.out.println("2. Lihat daftar buku");
+                System.out.println("3. Keluar");
+                System.out.println("Pilih Menu:");
+
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (choice) {
+                    case 1:
+                        System.out.print("Masukkan judul buku baru: ");
+                        String judulBaru = scanner.nextLine();
+
+                        System.out.print("Masukkan pengarang buku baru: ");
+                        String pengarangBaru = scanner.nextLine();
+
+                        System.out.print("Masukkan penerbit buku baru: ");
+                        String penerbitBaru = scanner.nextLine();
+
+                        System.out.print("Masukkan tahun terbit buku baru: ");
+                        int tahunTerbitBaru = scanner.nextInt();
+                        scanner.nextLine();
+
+                        // Tambah buku baru ke array buku
+                        Buku[] newBukuArr = new Buku[bukuArr.length + 1];
+                        for (int i = 0; i < bukuArr.length; i++) {
+                            newBukuArr[i] = bukuArr[i];
+                        }
+                        newBukuArr[bukuArr.length] = new Buku(judulBaru, pengarangBaru, penerbitBaru, tahunTerbitBaru);
+                        bukuArr = newBukuArr;
+
+                        System.out.println("Buku berhasil ditambahkan.");
+                        break;
+
+                    case 2:
+                        // Tampilkan daftar buku
+                        System.out.println("Daftar buku:");
+                        for (Buku buku : bukuArr) {
+                            System.out.println("- Judul: " + buku.getJudul());
+                            System.out.println("  Pengarang: " + buku.getPengarang());
+                            System.out.println("  Penerbit: " + buku.getPenerbit());
+                            System.out.println("  Tahun Terbit: " + buku.getTahunTerbit());
+                        }
+                        break;
+
+                    case 3:
+                        System.out.println("      Anda Telah Keluar dari Program ... ");
+                        System.out.print("\t    ");
+                        waktu();
+                        System.out.println("                Terima kasih.");
+                        System.exit(0);
+
+                    default:
+                        System.out.println("Pilihan tidak valid.");
+                        break;
+                }
+            }
+        } else {
+            System.out.println("Login gagal.");
+            System.exit(0);
+        }
+    }
+}
